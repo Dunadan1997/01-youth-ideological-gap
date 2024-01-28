@@ -1,4 +1,4 @@
-# Project name:
+# Project name: Ideological Gap between Young Men and Women
 # Author: Bruno Alves de Carvalho
 # Status: In Progress
 
@@ -206,6 +206,6 @@ final_plot <-
 
 # Save plot grid
 ggsave("Pol_YouthIdeologicalGap_20240128_ve01.png", path = "Visuals/ad_hoc/", plot = final_plot, width = 10, height = 7.5)
-ggsave("Pol_YouthIdeologicalGap_20240128_ve01.jpeg", path = "/Users/brunoalvesdecarvalho/Desktop/R Projects/ad-hoc-pol-youth-ideological-gap/", plot = final_plot, width = 10, height = 7.5)
+ggsave("Pol_YouthIdeologicalGap_20240128_ve02.jpeg", path = "/Users/brunoalvesdecarvalho/Desktop/R Projects/ad-hoc-pol-youth-ideological-gap/", plot = final_plot, width = 10, height = 7.5)
 
 
