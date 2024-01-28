@@ -197,8 +197,8 @@ subtitle <-
   grid::textGrob("Political ideology of 18 to 29 year olds from 1999 to 2022 (% left wing minus % right wing), by sex", 
            gp = grid::gpar(fontsize = 12), hjust = 0.65, vjust = -0.75)
 caption <- 
-  grid::textGrob("Source: Swiss Household Panel, my calculations", 
-           gp = grid::gpar(fontsize = 10, fontface = "italic"), hjust = 1.52)
+  grid::textGrob("Source: Swiss Household Panel, my calculations (Author: Bruno Alves de Carvalho)", 
+           gp = grid::gpar(fontsize = 10, fontface = "italic"), hjust = 0.885)
 
 # Arrange the grid and title
 final_plot <- 
