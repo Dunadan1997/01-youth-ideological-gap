@@ -70,6 +70,9 @@ all_linguistic_regions <-
   c("German Speaking Cantons", "French Speaking Cantons", 
     "Italian Speaking Cantons", "Bilingual Cantons")
 
+langregion_abbrev <-
+  c("table_GER", "table_FR", "table_IT", "table_BI")
+
 # Function to calculate smoothed lines
 model_smooth_lines <- function(data, var, method = "loess") {
   model <- loess(var ~ year, data = data, span = 0.5)
@@ -204,8 +207,8 @@ subtitle <-
   grid::textGrob("Political ideology of 18 to 29 year olds from 1999 to 2022 (% left wing minus % right wing), by sex", 
            gp = grid::gpar(fontsize = 12), hjust = 0.65, vjust = -0.75)
 caption <- 
-  grid::textGrob("Source: Swiss Household Panel (SHP), my calculations (Author: Bruno Alves de Carvalho)", 
-           gp = grid::gpar(fontsize = 10, fontface = "italic"), hjust = 0.825)
+  grid::textGrob("Source: Swiss Household Panel (SHP), author's calculations (Author: Bruno Alves de Carvalho)", 
+           gp = grid::gpar(fontsize = 10, fontface = "italic"), hjust = 0.785)
 
 # Arrange the grid and title
 final_plot <- 
@@ -214,5 +217,6 @@ final_plot <-
 # Save plot grid
 ggsave("Pol_YouthIdeologicalGap_20240128_ve01.png", path = "Visuals/ad_hoc/", plot = final_plot, width = 10, height = 7.5)
 ggsave("Pol_YouthIdeologicalGap_20240128_ve02.jpeg", path = "/Users/brunoalvesdecarvalho/Desktop/R Projects/ad-hoc-pol-youth-ideological-gap/", plot = final_plot, width = 10, height = 7.5)
+
 
 
