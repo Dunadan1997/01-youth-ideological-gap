@@ -2,4 +2,4 @@
 
 Status: ongoing
 
-![Plot](/assets/images/Pol_YouthIdeologicalGap_20240128_ve02.jpeg)
+![Plot](https://github.com/Dunadan1997/ad-hoc-pol-youth-ideological-gap/blob/main/Pol_YouthIdeologicalGap_20240128_ve02.jpeg)
