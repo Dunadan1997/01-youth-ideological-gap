@@ -132,6 +132,9 @@ calculate_ideological_gap <- function(data, language) {
       )
   
   if (all(language == all_linguistic_regions)) {
+    # Save aggregate data into global environment
+    table_CH <<- new_data  
+    
     # Plotting with smoothed lines and ribbon
     plot_basic +
       geom_segment(aes(x = 2000, y = -0.1, xend = 2000, yend = -0.15), 
@@ -155,8 +158,12 @@ calculate_ideological_gap <- function(data, language) {
       labs(title = "Switzerland",
            x = NULL, y = NULL) 
   } else {
+    # Save aggregate data into global environment
+    assign(langregion_abbrev[which(all_linguistic_regions == language)], new_data, envir = .GlobalEnv)
+    
+    
     # Plotting with smoothed lines and ribbon
-     plot_basic +
+    plot_basic +
       labs(title = language,
            x = NULL, y = NULL) 
   }
@@ -197,8 +204,8 @@ subtitle <-
   grid::textGrob("Political ideology of 18 to 29 year olds from 1999 to 2022 (% left wing minus % right wing), by sex", 
            gp = grid::gpar(fontsize = 12), hjust = 0.65, vjust = -0.75)
 caption <- 
-  grid::textGrob("Source: Swiss Household Panel, my calculations (Author: Bruno Alves de Carvalho)", 
-           gp = grid::gpar(fontsize = 10, fontface = "italic"), hjust = 0.885)
+  grid::textGrob("Source: Swiss Household Panel (SHP), my calculations (Author: Bruno Alves de Carvalho)", 
+           gp = grid::gpar(fontsize = 10, fontface = "italic"), hjust = 0.825)
 
 # Arrange the grid and title
 final_plot <- 
