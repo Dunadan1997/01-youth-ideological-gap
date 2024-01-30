@@ -80,6 +80,12 @@ model_smooth_lines <- function(data, var, method = "loess") {
   predict(model, newdata = data)
 }
 
+# Function to create a custom label for the plots
+custom_labels <- function(x) {
+  ifelse(x < 0, paste0("-", scales::percent_format(scale = 100, suffix = "")(abs(x))), 
+         ifelse(x > 0, paste0("+", scales::percent_format(scale = 100, suffix = "")(x)), "0"))
+}
+
 # Function to calculate and plot the ideological gap
 calculate_ideological_gap <- function(data, language) {
   new_data <- 
@@ -126,6 +132,7 @@ calculate_ideological_gap <- function(data, language) {
     geom_point(aes(y = man), color = blue, alpha = 0.5) +
     geom_point(aes(y = woman), color = red, alpha = 0.5) +
     scale_y_continuous(
+      labels = custom_labels,
       limits = c(-0.2, 0.3),
       minor_breaks = NULL,
       breaks = seq(-0.2, 0.3, 0.1)) +
