@@ -1,21 +1,21 @@
-# Project name: Ideological Gap between Young Men and Women
+# Project Name: Ideological Gap between Young Men and Women
 # Author: Bruno Alves de Carvalho
-# Status: In Progress
+# Status: Completed
 
 
 # Set Up ------------------------------------------------------------------
 
-# Set the directory to the data warehouse
+# Set the directory
 setwd("/Users/brunoalvesdecarvalho/Desktop/DataWarehouse_20231015_ve01")
 
 # Load packages
 library(tidyverse)
 library(haven)
 
-# Load functions from the warehouse
+# Load functions
 source("R_Scripts/FunctionRepository_20231016_ve01.R")
 
-# Load data stored in the warehouse
+# Load data
 merged_data_shp <-
   readRDS("SHP/Data_Aggregated_1999_2022/cached_mol_ed01.rds")
 
@@ -51,24 +51,25 @@ merged_data_shp$canton <-
 
 merged_data_shp$langregion <- 
   fct_collapse(merged_data_shp$canton, 
-               "German Speaking Cantons" = c("Argovia", "Appenzell Inner-Rhodes", "Appenzell Outer-Rhodes", 
+               "German-Speaking Cantons" = c("Argovia", "Appenzell Inner-Rhodes", "Appenzell Outer-Rhodes", 
                        "Basle-Town", "Basle-Country", "Berne", "Glarus", "Lucerne", 
                        "Nidwalden", "Obwalden", "St. Gall", "Schaffhausen", "Schwyz", 
                        "Thurgovia", "Uri", "Zug", "Zurich", "Solothurn"), 
-               "French Speaking Cantons" = c("Vaud", "Geneva", "Jura", "Neuchatel"), 
-               "Italian Speaking Cantons" = c("Ticino"), 
+               "French-Speaking Cantons" = c("Vaud", "Geneva", "Jura", "Neuchatel"), 
+               "Italian-Speaking Cantons" = c("Ticino"), 
                "Bilingual Cantons" = c("Fribourg", "Valais", "Grisons"))
 
 
 # Exploratory Data Analysis -----------------------------------------------
 
+# Filter men and women aged 18 to 29
 tab_young <- 
   merged_data_shp %>% 
   filter(`age$$` >= 18 & `age$$` <= 29)
 
 all_linguistic_regions <-
-  c("German Speaking Cantons", "French Speaking Cantons", 
-    "Italian Speaking Cantons", "Bilingual Cantons")
+  c("German-Speaking Cantons", "French-Speaking Cantons", 
+    "Italian-Speaking Cantons", "Bilingual Cantons")
 
 langregion_abbrev <-
   c("table_GER", "table_FR", "table_IT", "table_BI")
@@ -97,7 +98,7 @@ calculate_ideological_gap <- function(data, language) {
     # Calculate the gap between political ideologies by gender
     spread(key = "polideology", value = "polideology_prct") %>% 
     mutate(ideological_gap = left_wing - right_wing) %>% 
-    # Spread table by gender to facilitate visualization of the gap
+    # Spread table by gender to facilitate the production of the plot
     select(year, sex_fct, ideological_gap) %>% 
     spread(key = sex_fct, value = ideological_gap)
   
@@ -109,15 +110,19 @@ calculate_ideological_gap <- function(data, language) {
   
   # Create a data frame for smoothed lines
   smoothed_data <- 
-    data.frame(year = new_data$year, man = smoothed_man, woman = smoothed_woman)
+    data.frame(year = new_data$year, 
+               man = smoothed_man, 
+               woman = smoothed_woman)
   
-  # Create the basic plot
+  # Plot the smoothed lines and ribbon
   plot_basic <-
     ggplot(new_data, aes(x = year)) +
     geom_hline(yintercept = 0, linewidth = 0.75, color = grey) +
     geom_ribbon(data = smoothed_data, aes(ymin = man, ymax = woman), fill = pink, alpha = 0.75) +
-    geom_line(data = smoothed_data, aes(y = man), linewidth = 1 ,color = blue) +
-    geom_line(data = smoothed_data, aes(y = woman), linewidth = 1, color = red) +
+    geom_line(data = smoothed_data, aes(y = man), linewidth = 1 ,color = blue, 
+              arrow = arrow(type = "open", length = unit(0.25, "cm"))) +
+    geom_line(data = smoothed_data, aes(y = woman), linewidth = 1, color = red,
+              arrow = arrow(type = "open", length = unit(0.25, "cm"))) +
     geom_point(aes(y = man), color = blue, alpha = 0.5) +
     geom_point(aes(y = woman), color = red, alpha = 0.5) +
     scale_y_continuous(
@@ -138,7 +143,7 @@ calculate_ideological_gap <- function(data, language) {
     # Save aggregate data into global environment
     table_CH <<- new_data  
     
-    # Plotting with smoothed lines and ribbon
+    # Add aesthetics and text to the first plot
     plot_basic +
       geom_segment(aes(x = 2000, y = -0.1, xend = 2000, yend = -0.15), 
                    arrow = arrow(length = unit(0.25,"cm")), 
@@ -162,10 +167,13 @@ calculate_ideological_gap <- function(data, language) {
            x = NULL, y = NULL) 
   } else {
     # Save aggregate data into global environment
-    assign(langregion_abbrev[which(all_linguistic_regions == language)], new_data, envir = .GlobalEnv)
+    assign(
+      langregion_abbrev[which(all_linguistic_regions == language)], 
+      new_data, 
+      envir = .GlobalEnv
+      )
     
-    
-    # Plotting with smoothed lines and ribbon
+    # Add a title to the other plots
     plot_basic +
       labs(title = language,
            x = NULL, y = NULL) 
@@ -173,7 +181,7 @@ calculate_ideological_gap <- function(data, language) {
   
 }
 
-# Plot individual graphs
+# Plot the aggregated and predicted data for Switzerland and each linguistic region
 iterate_over <- 
   list(all_linguistic_regions, 
        all_linguistic_regions[1],
@@ -189,7 +197,7 @@ for (i in seq_along(iterate_over)) {
     calculate_ideological_gap(tab_young, unlist(iterate_over[i]))
 }
 
-# Visualize the plots together
+# Visualize the plots together in a grid
 plot_grid <- 
   gridExtra::grid.arrange(
     iteration_output[[1]], 
@@ -199,7 +207,7 @@ plot_grid <-
     iteration_output[[5]],
     ncol = 3, nrow = 2)
 
-# Add a title, subtitle, and caption to the grid
+# Add a title, subtitle, and caption to the grid plot
 title <- 
   grid::textGrob("Are young men and women more and more ideologically divided?", 
                  gp = grid::gpar(fontsize = 16, fontface = "bold"), hjust = 0.6725, vjust = 0.25)
@@ -214,9 +222,13 @@ caption <-
 final_plot <- 
   gridExtra::arrangeGrob(title, subtitle, plot_grid, caption, heights = c(0.5, 0.5, 7, 0.5))
 
-# Save plot grid
-ggsave("Pol_YouthIdeologicalGap_20240128_ve01.png", path = "Visuals/ad_hoc/", plot = final_plot, width = 10, height = 7.5)
-ggsave("Pol_YouthIdeologicalGap_20240128_ve02.jpeg", path = "/Users/brunoalvesdecarvalho/Desktop/R Projects/ad-hoc-pol-youth-ideological-gap/", plot = final_plot, width = 10, height = 7.5)
+# Save the grid plot
+ggsave("Pol_YouthIdeologicalGap_20240128_ve01.png", 
+       path = "Visuals/ad_hoc/", 
+       plot = final_plot, width = 10, height = 7.5)
+ggsave("Pol_YouthIdeologicalGap_20240128_ve02.jpeg", 
+       path = "/Users/brunoalvesdecarvalho/Desktop/R Projects/ad-hoc-pol-youth-ideological-gap/", 
+       plot = final_plot, width = 10, height = 7.5)
 
 
 
