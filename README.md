@@ -2,7 +2,7 @@
 
 ## A recent _Financial Times_ (FT) article suggests a growing ideology gap between young men and women worldwide. Does this hold true for Switzerland, a blueprint of Western Europe?
 
-Switzerland, a diverse country with three major Western European languages (German, French, and Italian), serves as an economic and cultural hub at the center of the continent. With a history closely connected with its neighbouring countries, Switzerland reflects both the broader European landscape and its own unique identity. What better place to examine burgeoning European trends?
+Switzerland, a diverse country with three major Western European languages (German, French, and Italian), serves as an economic and cultural hub at the center of the sub-continent. With a history closely connected with its neighbouring countries, Switzerland reflects both the broader European landscape and its own unique identity. What better place to examine burgeoning European trends?
 
 In this analysis, I replicated one of the FT's studies to explore whether a new gender divide is emerging among men and women aged 18 to 29 in Switzerland. The data paints a nuanced picture. 
 
