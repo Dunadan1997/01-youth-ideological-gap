@@ -14,7 +14,7 @@ In this analysis, I replicated one of the FT's studies to explore whether a new 
 
 I am relieved not to find a clear trend indicating an emerging ideology gap between young men and women in Switzerland. I find this possibility alarming, as we'll be better off fighting human suffering with more common ground. Of course, this is just my personal opinion! Nothing more, nothing less.
 
-Thank you to the FT and its data journalist, John Burn-Murdoch, for inspiring this analysis. The orignal FT article: (https://www.ft.com/content/29fd9b5c-2f35-41bf-9d4c-994db4e12998).
+Thank you to the FT and its data journalist, John Burn-Murdoch, for inspiring this analysis. [The orignal FT article](https://www.ft.com/content/29fd9b5c-2f35-41bf-9d4c-994db4e12998).
 
 I used data from the Swiss Household Panel, which is part of the _FORS - Swiss Centre of Expertise in the Social Sciences_ since 2008. You can find the full citation here:
 * SHP Group (2023), Living in Switzerland Waves 1-23 + Covid 19 data (6.0.0) [Dataset]. FORS data service. https://doi.org/10.48573/642z-p311
