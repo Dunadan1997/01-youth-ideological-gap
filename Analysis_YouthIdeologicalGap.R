@@ -209,8 +209,8 @@ plot_grid <-
 
 # Add a title, subtitle, and caption to the grid plot
 title <- 
-  grid::textGrob("Are young men and women more and more ideologically divided?", 
-                 gp = grid::gpar(fontsize = 16, fontface = "bold"), hjust = 0.6725, vjust = 0.25)
+  grid::textGrob("Are young men and women becoming more ideologically divided?", 
+                 gp = grid::gpar(fontsize = 16, fontface = "bold"), hjust = 0.6675, vjust = 0.25)
 subtitle <- 
   grid::textGrob("Political ideology of 18 to 29 year olds from 1999 to 2022 (% left wing minus % right wing), by sex", 
            gp = grid::gpar(fontsize = 12), hjust = 0.65, vjust = -0.75)
